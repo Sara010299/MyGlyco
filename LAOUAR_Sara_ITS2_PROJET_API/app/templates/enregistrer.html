@@ -1,0 +1,37 @@
+<html> 
+    <head>
+        <title> {{ title }} 
+        </title>
+    </head>
+    <body>
+    <form action="http://localhost:5000/accueil/mesures/enregistrer/ajouter" method="GET">
+    
+    <h1><u><i>Enregistrer</u></i></h1>
+        
+    <div>
+    <input type="radio" id="Avant repas" name="repas" value="Avant repas" checked>
+    <label for="Avantrepas">Avant repas</label>
+    <input type="radio" id="Apres repas" name="repas" value="Apres repas">
+    <label for="Apresrepas">Apres repas</label>
+    </div>
+    
+    
+    <br><p><label for="name"><i>Entrer le taux de glycémie :</i></label>
+		 <input type="text" id="number" name="number">g/L
+		 
+	<br><p><label for="start"><i>Entrer une date:</i></label>
+    <input type="date" id="date" name="date"
+       value=""
+       min="1600-01-01" max="3000-12-31"></p>
+       
+    <br><input id="enregistrer_button" type="submit" value="Enregistrer"></br>
+
+    <div>
+    <br><button type="button" onclick="javascript:history.back()"> Retour à la page de mesures </button>
+    </div>
+
+    
+    </form>
+    </body>
+</html>
+ 

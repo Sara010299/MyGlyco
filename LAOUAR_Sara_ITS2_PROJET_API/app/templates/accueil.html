@@ -1,0 +1,46 @@
+ <!doctype html>
+ <html lang="fr">
+	 <head>
+		 <meta charset="utf-8">
+		 <title>Accueil</title>
+	 </head>
+	 <h1><i><u>Accueil</i></u></h1>
+	 <body>
+	 <form action="http://localhost:5000/accueil/valider" method="GET">
+	 
+		 <p><i>Bonjour {{Login}} </i></p>
+		 <br><p>Rappel contrôle après repas </p>
+		 <p><label for="rappel"></label>
+         <input type="time" id="appt" name="appt"></p>
+
+		 <br><p>Alarme préventive hypoglycémie</p>
+		 <p><label for="time"></label>
+         <input type="time" id="time" name="time"></p>
+		 
+		 <br><p>En cas d'urgence </p>
+		 <label for="phone"><i>Entrer un numéro de téléphone :</i></label>
+		 <input type="tel" id="phone" name="phone"
+
+		 <br><p><label for="name"><i>Entrer le nom du médecin :</i></label>
+		 <input type="text" id="name" name="name"></p>
+		 
+	     <br><input id="valider_button" type="submit" value="Valider"></br>
+	     </form> 
+      
+         <form action="http://localhost:5000/accueil/mesures" method="GET">
+		 <br><input id="mesures_button" type="submit" value="Mesures"></br>
+    	 </form>
+    	
+         <form action="http://localhost:5000/accueil/information" method="GET">
+         <br><input id="Information_button" type="submit" value="Information">
+         </br>
+         </form>
+      
+         <div class="results-btn">
+         <br><button type="button" onclick="javascript:history.back()"> Retour à la page d'identification </button>
+         </div> 
+         
+   </form> 
+   </body>
+   </html>
+ 

@@ -1,0 +1,48 @@
+<html> 
+    <head>
+        <title> {{ title }} 
+        </title>
+    </head>
+    <body>
+    
+    <h1><u><i>Ton taux de glycémie</u></i></h1>
+    <p><i>Mes taux de glycémie : </i></p>
+    
+    <form action="http://localhost:5000/accueil/mesures/enregistrer" method="GET">
+          <br><p><input id="start_button" type="submit" value="Ajouter des mesures"></p>
+    
+
+    
+    
+    <div class="results-btn">
+    <ul>
+     {%for i in resultat%}
+          {%for j in i%}
+         
+          {%if loop.index==1 %}
+          <li>Nom du patient : {{j}}</li> 
+          {%endif%}
+          {%if loop.index==2 %}
+          <li>Sélection Avant/Après repas : {{j}}</li> 
+          {%endif%}
+          {%if loop.index==3 %}
+          <li>Taux de glycémie en g/L : {{j}}</li> 
+          {%endif%}
+          {%if loop.index==4 %}
+          <li>Date : {{j}}</li> 
+          {%endif%}
+            
+          {%endfor%}
+          <br>
+    {%endfor%}
+    </ul>
+ 
+     </div>
+     <button type="button" onclick="javascript:history.back()"> Retour à la page d'accueil </button>
+    
+    
+    </form>
+
+    </body>
+</html>
+ 

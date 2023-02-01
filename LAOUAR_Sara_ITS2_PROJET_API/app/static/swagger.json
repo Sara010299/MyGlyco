@@ -1,0 +1,481 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API-Project-2023",
+    "description": "Il s'agit d'une application web qui permet de contrôler et d'ajouter les différents taux de glucose dans le sang des patients. Bienvenue dans le projet API 2023 de l'application web : MyGlyco :) ! \n",
+    "contact": {
+      "email": "sarakwhn3@gmail.com"
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Information générale",
+      "description": "Fournit des précisions supplémentaires"
+    },
+    {
+      "name": "Enregistrer les données",
+      "description": "Permet d'enregistrer dans une base de données les données de chaque patient pour chaque mesure prise"
+    },
+    {
+      "name": "Afficher les données",
+      "description": "Permet d'afficher les données pour chaque patient ou d'ajouter des mesures"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Information générale"
+        ],
+        "summary": "Page d'accueil",
+        "description": "Cette page présente l'application web aux patients, Bienvenue dans l'application web MyGlyco !",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/accueil": {
+      "get": {
+        "tags": [
+          "Enregistrer les données"
+        ],
+        "summary": "Enregistre des données spécifiques au patient",
+        "description": "Cette page permet au patient d'ajouter un rappel contrôle après repas ainsi qu'une alarme préventive hypoglycémie. De plus, elle permet au patient d'indiquer, en cas d'urgence, le numéro de téléphone d'un proche ou d'un médecin ainsi que le nom du médecin.",
+        "parameters": [
+          {
+            "name": "RappelControle",
+            "in": "query",
+            "description": "Entrer une alarme de rappel de controle",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Alarme",
+            "in": "query",
+            "description": "Entrer une alarme préventive hypoglycémie",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Numéro",
+            "in": "query",
+            "description": "Entrer le numéro de téléphone",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Nom",
+            "in": "query",
+            "description": "Entrer le nom du médecin",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accueil"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accueil"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/accueil/mesures": {
+      "get": {
+        "tags": [
+          "Afficher les données"
+        ],
+        "summary": "Permer d'afficher les données qui ont été enregistrées dans la base de données ou d'ajouter de nouvelles mesures",
+        "description": "Cette page comprend deux fonctionnalités. Elle permet d'afficher le taux de glucose du patient en fonction de l'heure, de la date et si la prise du taux de glycémie a été prise avant ou après le repas. De plus,  elle permet d'ajouter de nouvelles mesures prises par le patient.",
+        "parameters": [
+          {
+            "name": "Nom du patient",
+            "in": "query",
+            "description": "Entrer le nom du patient",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Avant/Après repas",
+            "in": "query",
+            "description": "Avant/Après repas",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Taux de glycémie",
+            "in": "query",
+            "description": "Entrer le taux de glycémie",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Date",
+            "in": "query",
+            "description": "Entrer la date",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "updatePet",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mesures"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mesures"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/myGlyco": {
+      "get": {
+        "tags": [
+          "Enregistrer les données"
+        ],
+        "summary": "Permet à chaque patient de s'authentifier",
+        "description": "Cette page permet à chaque patient de rentrer dans sa page personnelle en indiquant un login et un mot de passe personnel.",
+        "parameters": [
+          {
+            "name": "Login",
+            "in": "query",
+            "description": "Entrer le Login du patient",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Password",
+            "in": "query",
+            "description": "Entrer le mot de passe du patient",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyGlyco"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyGlyco"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/accueil/mesures/enregistrer": {
+      "get": {
+        "tags": [
+          "Enregistrer les données"
+        ],
+        "summary": "Enregistre des données spécifiques liées aux différents taux de glycémie du patient",
+        "description": "Cette page permet au patient d'enregistrer son statut de prise de taux de glycémie (Avant ou Après repas), permet d'ajouter le taux de glycémie ainsi que la date de prise du taux de glycémie.",
+        "operationId": "findPetsByTags",
+        "parameters": [
+          {
+            "name": "Avant/Après repas",
+            "in": "query",
+            "description": "Avant/Après repas",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Taux de glycémie",
+            "in": "query",
+            "description": "Entrer le taux de glycémie",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Date",
+            "in": "query",
+            "description": "Entrer la date",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Mesures"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Mesures"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/accueil/information": {
+      "get": {
+        "tags": [
+          "Information générale"
+        ],
+        "summary": "Information générale sur la glycémie",
+        "description": "Cette page nous donne deux informations importantes. Elle définit la glycémie. De plus, elle indique les valeurs normales de la glycémie pour aider le patient à se retrouver et à savoir s'il est en hypo ou hyperglycémie.",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MyGlyco": {
+        "type": "object",
+        "properties": {
+          "Login": {
+            "type": "string",
+            "example": "Sara"
+          },
+          "Password": {
+            "type": "string",
+            "example": "1234"
+          }
+        },
+        "xml": {
+          "name": "MyGlyco"
+        }
+      },
+      "Accueil": {
+        "type": "object",
+        "properties": {
+          "RappelControle": {
+            "type": "string",
+            "example": "12h00"
+          },
+          "Alarme": {
+            "type": "string",
+            "example": "14h00"
+          },
+          "Numéro": {
+            "type": "string",
+            "example": "06 30 16 14 90"
+          },
+          "Nom": {
+            "type": "string",
+            "example": "Sara"
+          }
+        },
+        "xml": {
+          "name": "Accueil"
+        }
+      },
+      "Mesures": {
+        "type": "object",
+        "properties": {
+          "Nom du patient": {
+            "type": "string",
+            "example": "Sara"
+          },
+          "Avant/Après repas": {
+            "type": "string",
+            "example": "Avant/Après exemple"
+          },
+          "Taux de glycémie en g/L": {
+            "type": "string",
+            "example": "132"
+          },
+          "Date": {
+            "type": "string",
+            "example": "01-02-23"
+          }
+        },
+        "xml": {
+          "name": "address"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
